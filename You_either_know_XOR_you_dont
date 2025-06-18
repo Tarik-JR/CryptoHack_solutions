@@ -1,0 +1,19 @@
+cipher = "0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104"
+plaintext = "crypto{"
+bytes_plaintext= plaintext.encode('utf-8')
+bytes_cipher=bytes.fromhex(cipher)
+
+def xor_bytes(a,b):
+    results=[]
+    for i,j in zip(a,b):
+        xored=i^j
+        results.append(xored)
+    return bytes(results)
+key=xor_bytes(bytes_cipher,bytes_plaintext)
+
+
+print(f"key is th following:{key}")
+print(f"cipher text is the following: {bytes_cipher}")
+flag=bytes([c^ key[i % len(key)]for i, c in enumerate(bytes_cipher)])
+print(flag)
+
